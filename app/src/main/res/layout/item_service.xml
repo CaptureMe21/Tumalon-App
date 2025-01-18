@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_textList"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="2dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/rounded_lblue"
+    android:layout_margin="3dp">
+
+    <!-- Service Name -->
+    <TextView
+        android:id="@+id/txt_service_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="Service Name Here"
+        android:layout_margin="10dp"
+        android:textColor="@color/rblue"
+        android:textColorHint="@color/rblue"
+        android:textSize="16sp"/>
+
+    <!-- Price -->
+    <TextView
+        android:id="@+id/txt_service_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="₱000"
+        android:textColor="#FF0000"
+        android:textColorHint="#FF0000"
+        android:textSize="16sp" />
+
+    <!-- Checkbox -->
+    <CheckBox
+        android:id="@+id/checkbox_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

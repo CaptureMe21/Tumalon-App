@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ServiceList"
+    android:background="@color/rblue">
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/rblue"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/search_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="40dp">
+
+            <ImageView
+                android:id="@+id/back_arrow"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="Back Arrow"
+                android:src="@drawable/arrow"
+                android:layout_marginEnd="10dp" />
+
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:hint="Search From Services"
+                android:background="@drawable/rounded_edittext"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColorHint="@color/rblue"
+                android:imeOptions="actionSearch" />
+
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="Back Arrow"
+                android:src="@drawable/search"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Service List"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_margin="5dp"/>
+
+        <!-- Service List -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_service_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:background="@drawable/rounded_container"
+            android:padding="10dp"
+            android:scrollbars="vertical" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_book_appointment"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Book Appointment"
+            android:radius="16dp"
+            android:textColor="@color/rblue"
+            android:backgroundTint="@color/lblue"
+            android:padding="12dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

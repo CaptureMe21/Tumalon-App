@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "479306647885",
+    "firebase_url": "https://tumalon-smart-dental-care-default-rtdb.firebaseio.com",
+    "project_id": "tumalon-smart-dental-care",
+    "storage_bucket": "tumalon-smart-dental-care.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479306647885:android:31ee1f29179519173e8f04",
+        "android_client_info": {
+          "package_name": "com.example.tumalonsmartdentalcare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzHqwVhc-RX_hapL1nq2daZT-zTJ0I5cw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

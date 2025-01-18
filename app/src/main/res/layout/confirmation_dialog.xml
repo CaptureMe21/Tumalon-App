@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_lblue"
+    app:circularflow_radiusInDP="24dp"
+    app:circularflow_defaultRadius="24dp"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Service Selected"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/rblue"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <TextView
+            android:id="@+id/service_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Consultation"
+            android:textSize="18sp"
+            android:textColor="@color/rblue"/>
+
+        <TextView
+            android:id="@+id/service_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱000"
+            android:textColor="#FF0000"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Total:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/rblue"/>
+
+        <TextView
+            android:id="@+id/total_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₱000"
+            android:textColor="#FF0000"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Schedule Date:"
+            android:textSize="16sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/rblue"/>
+
+        <TextView
+            android:id="@+id/schedule_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="MM/DD/YYYY"
+            android:textSize="18sp"
+            android:textColor="@color/rblue"
+            android:textColorHint="@color/rblue"/>
+
+        <TextView
+            android:id="@+id/schedule_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DDDDDDD"
+            android:textColorHint="@color/rblue"
+            android:textSize="18sp"
+            android:textColor="@color/rblue"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:radius="16dp"
+        android:backgroundTint="@color/rblue"
+        android:textColor="@color/lblue"
+        android:padding="12dp" />
+
+</LinearLayout>
