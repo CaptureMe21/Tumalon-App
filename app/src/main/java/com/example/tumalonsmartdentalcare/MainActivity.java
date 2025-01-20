@@ -1,10 +1,7 @@
 package com.example.tumalonsmartdentalcare;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +14,6 @@ import com.example.tumalonsmartdentalcare.Fragment.MessagesFragment;
 import com.example.tumalonsmartdentalcare.Fragment.NotificationFragment;
 import com.example.tumalonsmartdentalcare.Fragment.ProfileFragment;
 import com.example.tumalonsmartdentalcare.databinding.ActivityMainBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 

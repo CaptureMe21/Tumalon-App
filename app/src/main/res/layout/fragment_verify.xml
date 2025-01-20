@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:background="@color/rblue">
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.032"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/tumalon_logo1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.101" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="TUMALON SMART \n DENTAL CARE"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/verify_otp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verify OTP"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Notice -->
+    <TextView
+        android:id="@+id/otp_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTICE: Do not share your OTP to anyone."
+        android:textColor="@color/rblue"
+        android:background="@drawable/rounded_lgrey"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- OTP Input Fields -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:weightSum="6">
+
+        <EditText
+            android:id="@+id/otp_input_1"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:maxLength="1"
+            android:inputType="number"
+            android:gravity="center"
+            android:background="@drawable/squared_lblue"
+            android:textColor="@color/rblue"
+            android:textSize="20sp"
+            android:layout_margin="4dp" />
+
+        <EditText
+            android:id="@+id/otp_input_2"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:maxLength="1"
+            android:inputType="number"
+            android:gravity="center"
+            android:background="@drawable/squared_lblue"
+            android:textColor="@color/rblue"
+            android:textSize="20sp"
+            android:layout_margin="4dp" />
+
+        <EditText
+            android:id="@+id/otp_input_3"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:background="@drawable/squared_lblue"
+            android:textColor="@color/rblue"
+            android:textSize="20sp"
+            android:layout_margin="4dp" />
+
+        <EditText
+            android:id="@+id/otp_input_4"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:background="@drawable/squared_lblue"
+            android:textColor="@color/rblue"
+            android:textSize="20sp"
+            android:layout_margin="4dp" />
+
+        <EditText
+            android:id="@+id/otp_input_5"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:background="@drawable/squared_lblue"
+            android:textColor="@color/rblue"
+            android:textSize="20sp"
+            android:layout_margin="4dp" />
+
+        <EditText
+            android:id="@+id/otp_input_6"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:background="@drawable/squared_lblue"
+            android:textColor="@color/rblue"
+            android:textSize="20sp"
+            android:layout_margin="4dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="25dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/resend_icon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/reset_lblue"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/resend_otp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resend OTP"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Verify Button -->
+    <Button
+        android:id="@+id/verify_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/lblue"
+        android:text="Verify"
+        android:textStyle="bold"
+        android:textColor="@color/rblue"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Login Link -->
+    <TextView
+        android:id="@+id/login_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Login"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+</LinearLayout>

@@ -48,10 +48,6 @@
             android:textStyle="bold"/>
     </LinearLayout>
 
-    <!-- Page Indicator -->
-
-    <!-- Login Link -->
-
     <EditText
         android:id="@+id/username"
         android:layout_width="350dp"
@@ -60,7 +56,9 @@
         android:drawablePadding="10dp"
         android:hint="Username"
         android:paddingLeft="45dp"
+        android:paddingRight="10dp"
         android:textColor="@color/white"
+        android:textStyle="bold"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,7 +89,9 @@
         android:background="@drawable/rounded_lblue"
         android:drawablePadding="10dp"
         android:hint="Email"
+        android:textStyle="bold"
         android:paddingLeft="45dp"
+        android:paddingRight="10dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,8 +119,11 @@
         android:layout_height="50dp"
         android:background="@drawable/rounded_lblue"
         android:drawablePadding="10dp"
+        android:inputType="textPassword"
         android:hint="Password"
         android:paddingLeft="45dp"
+        android:paddingRight="10dp"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -150,7 +153,10 @@
         android:background="@drawable/rounded_lblue"
         android:drawablePadding="10dp"
         android:hint="Confirm Password"
+        android:inputType="textPassword"
         android:paddingLeft="45dp"
+        android:paddingRight="10dp"
+        android:textStyle="bold"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

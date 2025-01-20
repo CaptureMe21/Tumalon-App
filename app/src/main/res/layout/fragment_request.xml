@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/rblue"
+    android:padding="24dp"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.032">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/tumalon_logo1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.101" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="TUMALON SMART \n DENTAL CARE"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/verify_otp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Request OTP"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NOTICE: Make sure your Number is Active."
+        android:textColor="@color/rblue"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_lgrey"/>
+
+    <!-- Phone Number Input -->
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/rounded_lblue"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp">
+
+        <ImageView
+            android:id="@+id/phone_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/phone_rblue"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp" />
+
+        <EditText
+            android:id="@+id/phoneNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Phone Number"
+            android:textAlignment="center"
+            android:textStyle="bold|italic"
+            android:inputType="phone"
+            android:textColorHint="@color/rblue"
+            android:textColor="@color/rblue" />
+    </LinearLayout>
+
+    <!-- Next Button -->
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/lblue"
+        android:text="Next"
+        android:textStyle="bold"
+        android:textColor="@color/rblue"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Login Link -->
+    <TextView
+        android:id="@+id/login_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account? Login"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif"
+        android:layout_marginTop="16dp"
+        android:gravity="center" />
+</LinearLayout>
