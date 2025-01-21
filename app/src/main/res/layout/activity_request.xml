@@ -16,6 +16,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_marginBottom="50dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -38,7 +39,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="TUMALON SMART \n DENTAL CARE"
@@ -61,7 +61,7 @@
         android:id="@+id/notice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NOTICE: Make sure your Number is Active."
+        android:text="NOTICE: Make sure your phone number is active."
         android:textColor="@color/rblue"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -71,9 +71,11 @@
 
     <!-- Phone Number Input -->
     <LinearLayout
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         android:background="@drawable/rounded_lblue"
         android:padding="12dp"
         android:layout_marginBottom="24dp">
@@ -86,11 +88,20 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp" />
 
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/picker_countryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:ccp_showFlag="false"
+            app:ccp_showNameCode="false"
+            android:layout_gravity="center"/>
+
         <EditText
             android:id="@+id/phoneNum"
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:hint="Enter Phone Number"
+            android:hint="Phone Number"
+            android:maxLength="12"
             android:textAlignment="center"
             android:textStyle="bold|italic"
             android:inputType="phone"
@@ -100,24 +111,13 @@
 
     <!-- Next Button -->
     <Button
-        android:id="@+id/next_button"
+        android:id="@+id/requestOtp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/lblue"
-        android:text="Next"
+        android:text="Request Otp"
         android:textStyle="bold"
         android:textColor="@color/rblue"
         android:layout_marginBottom="16dp" />
 
-    <!-- Login Link -->
-    <TextView
-        android:id="@+id/login_link"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Already have an account? Login"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif"
-        android:layout_marginTop="16dp"
-        android:gravity="center" />
 </LinearLayout>
