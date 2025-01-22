@@ -16,7 +16,7 @@
             android:name=".VerifyActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".TumalonLanding"
             android:exported="false" />
         <activity
             android:name=".RequestActivity"
@@ -31,7 +31,7 @@
             android:name=".ServiceList"
             android:exported="false" />
         <activity
-            android:name=".TumalonLanding"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

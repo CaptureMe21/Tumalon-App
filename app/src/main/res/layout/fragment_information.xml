@@ -85,10 +85,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Lastname"
+                        android:hint="Lastname"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="32"/>
 
                     <Space
                         android:layout_width="8dp"
@@ -100,10 +102,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Firstname"
+                        android:hint="Firstname"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="32"/>
 
                 </LinearLayout>
 
@@ -119,14 +123,37 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Middlename"
+                        android:hint="Middlename"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="32"/>
 
                     <Space
                         android:layout_width="8dp"
                         android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/suffix_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_lblue"
+                        android:hint="Suffix"
+                        android:padding="5dp"
+                        android:textColor="@color/rblue"
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="32" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/nickname_input"
@@ -134,21 +161,20 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Nickname"
+                        android:hint="Nickname"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
-                </LinearLayout>
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="16" />
 
-                <LinearLayout
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="8dp"
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/birthdate_input"
-                        android:layout_width="0dp"
+                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
@@ -156,7 +182,9 @@
                         android:padding="5dp"
                         android:textColor="@color/rblue"
                         android:textColorHint="@color/dgrey"
-                        android:focusable="false" />
+                        android:focusable="false"
+                        android:textStyle="italic"
+                        android:maxLength="32" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,10 +223,12 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Occupation"
+                        android:hint="Occupation"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="32" />
 
                 </LinearLayout>
 
@@ -227,7 +257,9 @@
                         android:hint="Enter Nationality"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="16" />
 
                     <Space
                         android:layout_width="8dp"
@@ -242,7 +274,9 @@
                         android:hint="Enter Religion"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="32" />
                 </LinearLayout>
 
                 <!-- Nickname, Sex, and Status -->
@@ -290,11 +324,14 @@
                         android:id="@+id/purok_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
                         android:background="@drawable/rounded_lblue"
                         android:hint="Purok Number"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="2" />
 
                 </LinearLayout>
 
@@ -324,7 +361,9 @@
                         android:hint="Enter Fullname"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="40" />
 
                     <Space
                         android:layout_width="8dp"
@@ -339,7 +378,9 @@
                         android:hint="Phone Number"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="11" />
 
                 </LinearLayout>
 
@@ -359,7 +400,9 @@
                         android:hint="Enter Home Address"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textColorHint="@color/dgrey"
+                        android:textStyle="italic"
+                        android:maxLength="64" />
 
                 </LinearLayout>
 

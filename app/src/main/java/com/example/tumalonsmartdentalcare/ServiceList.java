@@ -36,6 +36,7 @@ public class ServiceList extends AppCompatActivity {
     private EditText searchEditText;
     private ImageView backArrow, searchIcon;
     private LinearLayout searchBarLayout;
+    private String userId;
 
     private List<Service> services;
     private serviceAdapter serviceAdapter;
@@ -54,11 +55,14 @@ public class ServiceList extends AppCompatActivity {
         searchBarLayout = findViewById(R.id.search_bar_layout);
         btnBookAppointment = findViewById(R.id.btn_book_appointment);
 
+        // Retrieve the userId from the Intent
+        Intent intent = getIntent();
+        userId = intent.getStringExtra("userId");
+
         // Back arrow click listener to navigate to MainActivity
         backArrow.setOnClickListener(view -> {
-            Intent intent = new Intent(ServiceList.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            Intent intents = new Intent(ServiceList.this, MainActivity.class);
+            startActivity(intents);
         });
 
         // Initialize RecyclerView
@@ -80,21 +84,31 @@ public class ServiceList extends AppCompatActivity {
             }
 
             if (hasSelectedService) {
-                openScheduleFragment();
+                openScheduleFragment(userId);
             } else {
                 Toast.makeText(ServiceList.this, "No services selected. Please select at least one service.", Toast.LENGTH_SHORT).show();
             }
         });}
 
-    private void openScheduleFragment() {
-
+    private void openScheduleFragment(String userId) {
+        // Create a new instance of ScheduleFragment
         ScheduleFragment scheduleFragment = new ScheduleFragment();
+
+        // Create a Bundle to pass the userId
+        Bundle bundle = new Bundle();
+        bundle.putString("userId", userId); // Add userId to the Bundle
+
+        // Set the arguments for the fragment
+        scheduleFragment.setArguments(bundle);
+
+        // Begin the fragment transaction
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, scheduleFragment);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null); // Optional: add to backstack
         fragmentTransaction.commit();
     }
+
 
     public List<Service> getSelectedServices() {
         List<Service> selectedServices = new ArrayList<>();
@@ -132,4 +146,5 @@ public class ServiceList extends AppCompatActivity {
             }
         });
     }
+
 }

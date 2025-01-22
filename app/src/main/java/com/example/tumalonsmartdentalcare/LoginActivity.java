@@ -3,9 +3,12 @@ package com.example.tumalonsmartdentalcare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,7 +16,8 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText emailField, passwordField;
     private Button loginButton;
     private TextView signupBtn;
+    private ImageView showPasswordToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,59 +41,92 @@ public class LoginActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password_field);
         loginButton = findViewById(R.id.login_button);
         signupBtn = findViewById(R.id.signup);
+        showPasswordToggle = findViewById(R.id.passwordToggle);
 
         signupBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            Intent intent = new Intent(LoginActivity.this, RequestActivity.class);
             startActivity(intent);
         });
 
         // Handle login button click
         loginButton.setOnClickListener(v -> {
-            String email = emailField.getText().toString().trim();
-            String password = passwordField.getText().toString().trim();
 
-            // Validate input
-            if (TextUtils.isEmpty(email)) {
-                emailField.setError("Email is required");
-                return;
+            validateField();
+
+        });
+
+        showPasswordToggle.setOnClickListener(v -> {
+            // Check the current transformation method to toggle visibility
+            if (passwordField.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Show password as plain text
+                passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                showPasswordToggle.setImageResource(R.drawable.show_pass); // Open eye image
+            } else {
+                // Hide password with password stars
+                passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                showPasswordToggle.setImageResource(R.drawable.hide_pass); // Closed eye image
             }
-
-            if (TextUtils.isEmpty(password)) {
-                passwordField.setError("Password is required");
-                return;
-            }
-
-            loginUser(email, password);
+            // Move the cursor to the end after toggling
+            passwordField.setSelection(passwordField.getText().length());
         });
     }
 
-    private void loginUser(String email, String password) {
+
+    private void validateField(){
+        String email = emailField.getText().toString().trim();
+        String password = passwordField.getText().toString().trim();
+
+        // Validate input
+        if (TextUtils.isEmpty(email)) {
+            emailField.setError("Email is required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            passwordField.setError("Password is required");
+            return;
+        }
+
+        loginUser();
+    }
+
+    private void loginUser() {
+        // Get email and password from input fields
+        String email = emailField.getText().toString().trim();
+        String password = passwordField.getText().toString().trim();
+
+        // Check if the email exists in Firebase Authentication
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Login successful
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        if (user != null) {
-                            // Set authentication status to true
-                            getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                                    .edit()
-                                    .putBoolean("isAuthenticated", true)
-                                    .apply();
+                        // Successfully logged in
+                        Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Log.d("LoginActivity", "Logged in user ID: " + user.getUid());
+                        // Get the user ID from Firebase Authentication
+                        String userId = firebaseAuth.getCurrentUser().getUid();
 
-                            // Redirect to home or dashboard
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Change to your next activity
-                            intent.putExtra("userId", user.getUid());
-                            startActivity(intent);
-                            finish();
-                        }
+                        // Update the 'isAuthenticated' field to true in Firebase Realtime Database
+                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("clientAccount").child(userId);
+                        userRef.child("isAuthenticated").setValue(true)
+                                .addOnCompleteListener(updateTask -> {
+                                    if (updateTask.isSuccessful()) {
+                                        // Successfully updated authentication status
+                                        // Redirect to MainActivity or any other activity
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.putExtra("currentUser", userId);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        // Handle error while updating 'isAuthenticated'
+                                        Toast.makeText(LoginActivity.this, "Failed to update authentication status.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     } else {
-                        // Login failed
-                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Login failed";
+                        // Handle errors
+                        String errorMessage = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Login failed. Please try again.";
                         Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        Log.e("LoginActivity", "Login error", task.getException());
                     }
                 });
     }

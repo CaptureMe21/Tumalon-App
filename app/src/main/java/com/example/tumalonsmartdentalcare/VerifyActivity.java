@@ -177,13 +177,9 @@ public class VerifyActivity extends AppCompatActivity {
                             String uid = user.getUid();
                             String identifier = user.getPhoneNumber();
 
-                            // Save user data in database
-                            saveUserData(uid, identifier);
-
                             // Proceed to next activity with UID
                             Intent intent = new Intent(VerifyActivity.this, SignupActivity.class);
-                            intent.putExtra("userId", uid);  // Pass the UID
-                            intent.putExtra("phone", identifier);  // Also pass the phone number if needed
+                            intent.putExtra("phone", identifier); 
                             startActivity(intent);
                             finish();
                         } else {
@@ -199,30 +195,6 @@ public class VerifyActivity extends AppCompatActivity {
                 });
     }
 
-    private void saveUserData(String uid, String identifier) {
-        savePhoneNumberInDatabase(uid, identifier);
-    }
-
-
-    private void savePhoneNumberInDatabase(String userId, String phoneNumber) {
-        if (userId == null || phoneNumber == null) {
-            Toast.makeText(this, "Invalid user data", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clientAccount");
-        PhoneModel clientAccount = new PhoneModel(userId, phoneNumber);
-
-        databaseReference.child(userId).setValue(clientAccount)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("VerifyActivity", "Phone number saved successfully");
-                    } else {
-                        Log.e("VerifyActivity", "Error saving data", task.getException());
-                        Toast.makeText(this, "Error saving data", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
     private void initializeViews() {
         otp_1 = findViewById(R.id.otp_input_1);
         otp_2 = findViewById(R.id.otp_input_2);

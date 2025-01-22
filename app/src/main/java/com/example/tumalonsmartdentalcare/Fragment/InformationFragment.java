@@ -39,9 +39,7 @@ public class InformationFragment extends Fragment {
             phoneNumInput, addressInput, birthdateInput;
 
     private Spinner statusSpinner, sexSpinner, provinceSpinner, municipalitySpinner, barangaySpinner;
-
-    private String userId, email, password;
-
+    private String phone, email, password;
     private Button finishButton;
 
     private static final String ARG_PARAM1 = "param1";
@@ -99,7 +97,7 @@ public class InformationFragment extends Fragment {
 
         Bundle arguments = getArguments();
         if (arguments != null) {
-            userId = arguments.getString("userId");
+            phone = arguments.getString("phone");
             email = arguments.getString("email");
             password = arguments.getString("password");
         }
@@ -332,7 +330,13 @@ public class InformationFragment extends Fragment {
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateFields();
+                // Check if all fields are valid
+                if (validateFields()) {
+                    // Call saveClientData if validation is successful
+                    saveClientData();
+                } else {
+                    Toast.makeText(getContext(), "Please correct the errors in the form.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -410,66 +414,7 @@ public class InformationFragment extends Fragment {
             isValid = false;
         }
 
-        registerUserInFirebaseAuth(email, password);
         return isValid;
-    }
-
-    private void saveClientData() {
-        // Get Firebase database reference
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clientAccount");
-
-        // Retrieve the userId passed from SignupActivity
-        Bundle arguments = getArguments();
-        if (arguments == null) {
-            Toast.makeText(getContext(), "User ID not found!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String userId = arguments.getString("userId");
-        String email = arguments.getString("email");
-        String password = arguments.getString("password");
-
-        if (userId == null || email == null ||  password == null) {
-            Toast.makeText(getContext(), "Required data is missing!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Collect data from input fields
-        String lastName = lnameInput.getText().toString().trim();
-        String firstName = fnameInput.getText().toString().trim();
-        String middleName = middleInput.getText().toString().trim();
-        String nickname = nicknameInput.getText().toString().trim();
-        String dateBirth = birthdateInput.getText().toString().trim();
-        String occupation = occupationInput.getText().toString().trim();
-        String civilStatus = statusSpinner.getSelectedItem().toString().trim();
-        String sex = sexSpinner.getSelectedItem().toString().trim();
-        String province = provinceSpinner.getSelectedItem().toString().trim();
-        String municipality = municipalitySpinner.getSelectedItem().toString().trim();
-        String barangay = barangaySpinner.getSelectedItem().toString().trim();
-        String nationality = nationalityInput.getText().toString().trim();
-        String religion = religionInput.getText().toString().trim();
-        String purok = purokInput.getText().toString().trim();
-        String personName = fullnameInput.getText().toString().trim();
-        String personNumber = phoneNumInput.getText().toString().trim();
-        String personAddress = addressInput.getText().toString().trim();
-
-        // Create a new ClientAccount object
-        ClientAccount clientAccount = new ClientAccount(userId, lastName, firstName, middleName, nickname, dateBirth, occupation, civilStatus, sex, province, municipality,
-                barangay, nationality, religion, purok, personName, personNumber, personAddress, email);
-
-        // Save data under the clientAccount node with userId as the key
-        databaseReference.child(userId).setValue(clientAccount).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Account saved successfully!", Toast.LENGTH_SHORT).show();
-                registerUserInFirebaseAuth(email, password);
-
-                Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                startActivity(intent);
-
-            } else {
-                Toast.makeText(getContext(), "Failed to save account. Try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void showDatePickerDialog() {
@@ -491,43 +436,72 @@ public class InformationFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void registerUserInFirebaseAuth(String email, String password) {
-        // Retrieve userId from Bundle arguments
+    private void saveClientData() {
+        // Retrieve data from input fields
+        String lastName = lnameInput.getText().toString().trim();
+        String firstName = fnameInput.getText().toString().trim();
+        String middleName = middleInput.getText().toString().trim();
+        String nickname = nicknameInput.getText().toString().trim();
+        String dateBirth = birthdateInput.getText().toString().trim();
+        String occupation = occupationInput.getText().toString().trim();
+        String civilStatus = statusSpinner.getSelectedItem().toString().trim();
+        String sex = sexSpinner.getSelectedItem().toString().trim();
+        String province = provinceSpinner.getSelectedItem().toString().trim();
+        String municipality = municipalitySpinner.getSelectedItem().toString().trim();
+        String barangay = barangaySpinner.getSelectedItem().toString().trim();
+        String nationality = nationalityInput.getText().toString().trim();
+        String religion = religionInput.getText().toString().trim();
+        String purok = purokInput.getText().toString().trim();
+        String personName = fullnameInput.getText().toString().trim();
+        String personNumber = phoneNumInput.getText().toString().trim();
+        String personAddress = addressInput.getText().toString().trim();
+
+        // Retrieve arguments passed from SignupActivity
         Bundle arguments = getArguments();
-        if (arguments != null) {
-            userId = arguments.getString("userId"); // Retrieve the custom userId
+        if (arguments == null) {
+            Toast.makeText(getContext(), "Required arguments not found!", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        // Register the user
+        String phoneNumber = arguments.getString("phone");
+        String email = arguments.getString("email");
+        String password = arguments.getString("password");
+
+        if (phone == null || email == null || password == null) {
+            Toast.makeText(getContext(), "Required data is missing!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Register user in Firebase Authentication and save data to Realtime Database
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // User registration successful
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        if (user != null && userId != null) {
-                            // Set the custom userId
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(userId) // Assign the custom userId
-                                    .build();
+                        // Get the UID from the newly created user
+                        String userId = firebaseAuth.getCurrentUser().getUid();
 
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(updateTask -> {
-                                        if (updateTask.isSuccessful()) {
-                                            // Optional: Perform additional actions, e.g., save data
-                                            saveClientData();
-                                            Toast.makeText(getContext(), "User registered successfully with custom userId!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getContext(), "Failed to save custom userId in FirebaseAuth profile.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        } else {
-                            Toast.makeText(getContext(), "User registration failed: userId is null.", Toast.LENGTH_SHORT).show();
-                        }
+                        // Create a new ClientAccount object
+                        ClientAccount clientAccount = new ClientAccount(lastName, firstName, middleName, nickname, dateBirth, occupation, civilStatus, sex,
+                                province, municipality, barangay, nationality, religion, "Purok "+purok, personName, personNumber, personAddress, email, phoneNumber);
+
+                        // Save the client data under the clientAccount node with userId as the key
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clientAccount");
+                        databaseReference.child(userId).setValue(clientAccount).addOnCompleteListener(saveTask -> {
+                            if (saveTask.isSuccessful()) {
+                                Toast.makeText(getContext(), "Account saved successfully!", Toast.LENGTH_SHORT).show();
+
+                                // Redirect to LoginActivity
+                                Intent intent = new Intent(getContext(), LoginActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(getContext(), "Failed to save account. Try again.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
-                        // Handle registration failure
-                        Toast.makeText(getContext(), "Registration failed: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"), Toast.LENGTH_SHORT).show();
+                        String errorMessage = task.getException() != null
+                                ? task.getException().getMessage()
+                                : "Unknown error";
+                        Toast.makeText(getContext(), "Registration failed: " + errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
 }

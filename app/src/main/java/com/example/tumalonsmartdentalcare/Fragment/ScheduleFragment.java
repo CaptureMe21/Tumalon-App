@@ -3,6 +3,7 @@ package com.example.tumalonsmartdentalcare.Fragment;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.example.tumalonsmartdentalcare.Model.Appointment;
 import com.example.tumalonsmartdentalcare.Model.Service;
 import com.example.tumalonsmartdentalcare.R;
 import com.example.tumalonsmartdentalcare.ServiceList;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,9 +34,12 @@ public class ScheduleFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private String selectedDateStr;
-    private String selectedTime;
+
+    private String selectedDateStr, selectedTime, userId;
     private CalendarView calendarView;
+    private TextView txtMorning, txtAfternoon;
+    private ImageView backArrow;
+    private Calendar calendar;
 
     private String mParam1;
     private String mParam2;
@@ -67,28 +72,24 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_schedule, container, false);
 
-        // Initialize the TextViews
-        TextView txtMorning = view.findViewById(R.id.txt_morning);
-        TextView txtAfternoon = view.findViewById(R.id.txt_afternoon);
-
-        // Initialize CalendarView
+        txtMorning = view.findViewById(R.id.txt_morning);
+        txtAfternoon = view.findViewById(R.id.txt_afternoon);
         calendarView = view.findViewById(R.id.calendar_view);
-
-        // Initialize with current date
-        Calendar calendar = Calendar.getInstance();
+        backArrow = view.findViewById(R.id.back_arrow);
+        calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
         selectedDateStr = dateFormat.format(calendar.getTime());
-
-        // Set up CalendarView listener
         calendarView.setOnDateChangeListener((view1, year, month, dayOfMonth) -> {
             calendar.set(year, month, dayOfMonth);
             selectedDateStr = dateFormat.format(calendar.getTime());
         });
 
-        // Initialize the back arrow ImageView
-        ImageView backArrow = view.findViewById(R.id.back_arrow);
+        // Retrieve the userId from the arguments
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            userId = arguments.getString("userId");
+        }
 
-        // Initialize the Next Dialog button
         Button btnNextDialog = view.findViewById(R.id.btn_next_dialog);
 
         // Set up click listeners for the TextViews
@@ -174,7 +175,13 @@ public class ScheduleFragment extends Fragment {
                 serviceFees.append("\n");
             }
             serviceNames.append(service.getServiceName());
-            double fee = Double.parseDouble(service.getServiceFee());
+            double fee;
+            try {
+                fee = Double.parseDouble(service.getServiceFee());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getContext(), "Invalid service fee format.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             serviceFees.append("₱").append(String.format("%.2f", fee));
             totalFee += fee;
         }
@@ -182,47 +189,83 @@ public class ScheduleFragment extends Fragment {
         serviceNameText.setText(serviceNames.toString());
         serviceFeeText.setText(serviceFees.toString());
         totalFeeText.setText("₱" + String.format("%.2f", totalFee));
+
+        if (selectedDateStr == null || selectedTime == null) {
+            Toast.makeText(getContext(), "Schedule details are missing.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         scheduleDateText.setText(selectedDateStr);
-        scheduleTimeText.setText(selectedTime); // Use the selectedTime variable
+        scheduleTimeText.setText(selectedTime);
+
+        // Retrieve userId
+        final String userId;
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            userId = arguments.getString("userId");
+        } else {
+            Toast.makeText(getContext(), "User ID not found.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (userId == null) {
+            Toast.makeText(getContext(), "User ID not found.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         confirmButton.setOnClickListener(v -> {
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("appointments");
-            String appointmentId = databaseReference.push().getKey();
+            try {
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("appointments");
+                String appointmentId = databaseReference.push().getKey();
 
-            if (appointmentId == null) {
-                Toast.makeText(getContext(), "Failed to create appointment. Please try again.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            HashMap<String, Object> appointmentData = new HashMap<>();
-            appointmentData.put("scheduleDate", selectedDateStr);
-            appointmentData.put("scheduleTime", selectedTime);
-            appointmentData.put("createdAt", System.currentTimeMillis());
-            appointmentData.put("appointmentStatus", false);
-
-            HashMap<String, Boolean> servicesData = new HashMap<>();
-            for (Service service : selectedServices) {
-                String serviceId = service.getServiceId();
-                if (serviceId != null) {
-                    servicesData.put(serviceId, true);
+                if (appointmentId == null) {
+                    Toast.makeText(getContext(), "Failed to create appointment.", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                HashMap<String, Object> appointmentData = new HashMap<>();
+                appointmentData.put("userId", userId);
+                appointmentData.put("scheduleDate", selectedDateStr);
+                appointmentData.put("scheduleTime", selectedTime);
+                appointmentData.put("createdAt", System.currentTimeMillis());
+                appointmentData.put("appointmentStatus", false);
+
+                HashMap<String, Boolean> servicesData = new HashMap<>();
+                for (Service service : selectedServices) {
+                    String serviceId = service.getServiceId();
+                    if (serviceId != null) {
+                        servicesData.put(serviceId, true);
+                    }
+                }
+                appointmentData.put("services", servicesData);
+
+                databaseReference.child(appointmentId).setValue(appointmentData)
+                        .addOnSuccessListener(unused -> {
+                            Toast.makeText(getContext(), "Appointment saved successfully.", Toast.LENGTH_SHORT).show();
+                            try {
+                                // Create an Intent to navigate to MainActivity
+                                Intent intent = new Intent(getContext(), MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                                // Pass the userId to MainActivity
+                                FirebaseAuth.getInstance().getCurrentUser().getUid();  // Retrieve the current user ID
+                                intent.putExtra("currentUser", userId);  // Pass userId to MainActivity
+
+                                getContext().startActivity(intent);
+                            } catch (Exception e) {
+                                Log.e("AppointmentSave", "Error starting MainActivity: " + e.getMessage());
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(getContext(), "Failed to save appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+
+                confirmationDialog.dismiss();
+            } catch (Exception e) {
+                Log.e("FirebaseSave", "Error saving appointment: " + e.getMessage());
+                Toast.makeText(getContext(), "Unexpected error occurred.", Toast.LENGTH_SHORT).show();
             }
-            appointmentData.put("services", servicesData);
-
-            databaseReference.child(appointmentId).setValue(appointmentData)
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(getContext(), "Your Appointment Request is now in the clinic!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        getContext().startActivity(intent);
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(getContext(), "Failed to save appointment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-
-            confirmationDialog.dismiss();
         });
-
 
         confirmationDialog.show();
     }

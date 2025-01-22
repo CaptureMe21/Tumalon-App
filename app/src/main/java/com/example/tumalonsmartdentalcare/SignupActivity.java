@@ -3,10 +3,13 @@ package com.example.tumalonsmartdentalcare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +30,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText emailField, passwordField, confirmPasswordField;
     private Button nextButton;
-    private String userId;
+    private String phone;
+    private ImageView showPasswordToggle, showPasswordToggle1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +46,14 @@ public class SignupActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password);
         confirmPasswordField = findViewById(R.id.confirm_password);
         nextButton = findViewById(R.id.next_button);
+        showPasswordToggle = findViewById(R.id.showPasswordToggle);
+        showPasswordToggle1 = findViewById(R.id.showPasswordToggle1);
 
             try {
-                // Retrieve the passed data and assign to the global variable
                 Intent intent = getIntent();
-                userId = intent.getStringExtra("userId"); // Use the global `userId`
+                phone = intent.getStringExtra("phone");
 
-                if (userId == null) {
+                if (phone == null) {
                     Toast.makeText(this, "Error: User ID not found", Toast.LENGTH_SHORT).show();
                     finish();
                     return;
@@ -67,6 +72,37 @@ public class SignupActivity extends AppCompatActivity {
                 validateAndProceed();
             }
         });
+
+        showPasswordToggle.setOnClickListener(v -> {
+            // Check the current transformation method to toggle visibility
+            if (passwordField.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Show password as plain text
+                passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                showPasswordToggle.setImageResource(R.drawable.show_pass); // Open eye image
+            } else {
+                // Hide password with password stars
+                passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                showPasswordToggle.setImageResource(R.drawable.hide_pass); // Closed eye image
+            }
+            // Move the cursor to the end after toggling
+            passwordField.setSelection(passwordField.getText().length());
+        });
+
+        showPasswordToggle1.setOnClickListener(v -> {
+            // Check the current transformation method to toggle visibility
+            if (confirmPasswordField.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Show password as plain text
+                confirmPasswordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                showPasswordToggle1.setImageResource(R.drawable.show_pass); // Open eye image
+            } else {
+                // Hide password with password stars
+                confirmPasswordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                showPasswordToggle1.setImageResource(R.drawable.hide_pass); // Closed eye image
+            }
+            // Move the cursor to the end after toggling
+            confirmPasswordField.setSelection(confirmPasswordField.getText().length());
+        });
+
     }
 
     private void validateAndProceed() {
@@ -103,10 +139,10 @@ public class SignupActivity extends AppCompatActivity {
         return password.length() >= 6;
     }
 
-    private void openRequestFragment(  String userId, String email, String password) {
+    private void openRequestFragment(  String phone, String email, String password) {
         // Create a bundle and add data
         Bundle bundle = new Bundle();
-        bundle.putString("userId", userId);
+        bundle.putString("phone", phone);
         bundle.putString("email", email);
         bundle.putString("password", password);
 
@@ -146,7 +182,7 @@ public class SignupActivity extends AppCompatActivity {
                                 // Email already exists in userAccount
                                 Toast.makeText(SignupActivity.this, "Email already taken. Please use a different email.", Toast.LENGTH_SHORT).show();
                             } else {
-                                openRequestFragment(userId, email, password);
+                                openRequestFragment(phone, email, password);
                             }
                         }
 

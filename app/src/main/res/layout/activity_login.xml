@@ -97,6 +97,20 @@
         android:layout_marginEnd="32dp" />
 
     <ImageView
+        android:id="@+id/passwordToggle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="25dp"
+        android:contentDescription="Show/Hide Password"
+        android:src="@drawable/hide_pass"
+        app:layout_constraintBottom_toBottomOf="@+id/password_field"
+        app:layout_constraintEnd_toEndOf="@+id/password_field"
+        app:layout_constraintHorizontal_bias="0.996"
+        app:layout_constraintStart_toEndOf="@+id/PasswordImg"
+        app:layout_constraintTop_toTopOf="@+id/password_field"
+        app:layout_constraintVertical_bias="0.45" />
+
+    <ImageView
         android:id="@+id/PasswordImg"
         android:layout_width="39dp"
         android:layout_height="28dp"
