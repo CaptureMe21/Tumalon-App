@@ -1,6 +1,314 @@
 <resources>
     <string name="app_name">Tumalon Smart Dental Care</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">MapsActivity</string>
+
+    <string-array name="sex_options">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="status_options">
+        <item>Single</item>
+        <item>Married</item>
+        <item>Divorced</item>
+        <item>Widowed</item>
+    </string-array>
+
+    <!-- Province -->
+    <string-array name="province_options">
+        <item>Bohol</item>
+        <item>Cebu</item>
+    </string-array>
+
+    <!-- All Municipalities/City in Bohol -->
+    <string-array name="municipality_options">
+        <item>Alburquerque</item>
+        <item>Alicia</item>
+        <item>Anda</item>
+        <item>Antequera</item>
+        <item>Baclayon</item>
+        <item>Balilihan</item>
+        <item>Batuan</item>
+        <item>Bien Unido</item>
+        <item>Bilar</item>
+        <item>Buenavista</item>
+        <item>Calape</item>
+        <item>Candijay</item>
+        <item>Carmen</item>
+        <item>Catigbian</item>
+        <item>Clarin</item>
+        <item>Corella</item>
+        <item>Cortes</item>
+        <item>Dagohoy</item>
+        <item>Danao</item>
+        <item>Dauis</item>
+        <item>Dimiao</item>
+        <item>Duero</item>
+        <item>Garcia Hernandez</item>
+        <item>Getafe</item>
+        <item>Guindulman</item>
+        <item>Inabanga</item>
+        <item>Jagna</item>
+        <item>Jetafe</item>
+        <item>Lila</item>
+        <item>Loay</item>
+        <item>Loboc</item>
+        <item>Loon</item>
+        <item>Mabini</item>
+        <item>Maribojoc</item>
+        <item>Panglao</item>
+        <item>Pilar</item>
+        <item>President Carlos P. Garcia</item>
+        <item>Sagbayan</item>
+        <item>San Isidro</item>
+        <item>San Miguel</item>
+        <item>Sevilla</item>
+        <item>Sierra Bullones</item>
+        <item>Sikatuna</item>
+        <item>Tagbilaran City</item>
+        <item>Talibon</item>
+        <item>Trinidad</item>
+        <item>Tubigon</item>
+        <item>Ubay</item>
+        <item>Valencia</item>
+    </string-array>
+
+    <!-- Barangays for each Municipality -->
+
+    <!-- Alburquerque Barangays -->
+    <string-array name="alburquerque_barangays">
+        <item>Basacdacu</item>
+        <item>Bato</item>
+        <item>Dangay</item>
+        <item>East Poblacion</item>
+        <item>Ponong</item>
+        <item>San Agustin</item>
+        <item>Santa Filomena</item>
+        <item>Tagbuane</item>
+        <item>West Poblacion</item>
+    </string-array>
+
+    <!-- Alicia Barangays -->
+    <string-array name="alicia_barangays">
+        <item>Bagong Silang</item>
+        <item>Bilangbilangan</item>
+        <item>Cabatang</item>
+        <item>Cagongcagong</item>
+        <item>Cambaol</item>
+        <item>Dampas</item>
+        <item>Del Monte</item>
+        <item>Durong</item>
+        <item>Katipunan</item>
+        <item>La Hacienda</item>
+        <item>Putlongcam</item>
+        <item>Poblacion</item>
+        <item>Progreso</item>
+        <item>Napo</item>
+        <item>Sudlon</item>
+    </string-array>
+
+    <!-- Anda Barangays -->
+    <string-array name="anda_barangays">
+        <item>Almaria</item>
+        <item>Bacong</item>
+        <item>Badiang</item>
+        <item>Buenasuerte</item>
+        <item>Candabong</item>
+        <item>Casica</item>
+        <item>Katipunan</item>
+        <item>Linawan</item>
+        <item>Lungon</item>
+        <item>Poblacion</item>
+        <item>Santa Cruz</item>
+        <item>Suba</item>
+        <item>Talisay</item>
+        <item>Tawid</item>
+        <item>Virgen</item>
+    </string-array>
+
+    <!-- Antequera Barangays -->
+    <string-array name="antequera_barangays">
+        <item>Angilan</item>
+        <item>Bantolinao</item>
+        <item>Bungahan</item>
+        <item>Cagawasan</item>
+        <item>Canlaas</item>
+        <item>Cantigdas</item>
+        <item>Danao</item>
+        <item>Poblacion</item>
+        <item>Quinapon-an</item>
+        <item>Santo Rosario</item>
+        <item>Tabuan</item>
+        <item>Tupas</item>
+        <item>Viga</item>
+    </string-array>
+
+    <!-- Baclayon Barangays -->
+    <string-array name="baclayon_barangays">
+        <item>Guiwanon</item>
+        <item>Landican</item>
+        <item>Laya</item>
+        <item>Montana</item>
+        <item>Pamilacan</item>
+        <item>Poblacion</item>
+        <item>San Isidro</item>
+        <item>San Roque</item>
+        <item>San Vicente</item>
+        <item>Santa Cruz</item>
+        <item>Tanday</item>
+        <item>Taguihon</item>
+    </string-array>
+
+    <!-- Balilihan Barangays -->
+    <string-array name="balilihan_barangays">
+        <item>Boctol</item>
+        <item>Boyog Norte</item>
+        <item>Boyog Sur</item>
+        <item>Cabad</item>
+        <item>Cantomimbo</item>
+        <item>Candasag</item>
+        <item>Cogon</item>
+        <item>Datag Norte</item>
+        <item>Datag Sur</item>
+        <item>Del Carmen Este</item>
+        <item>Del Carmen Norte</item>
+        <item>Del Carmen Sur</item>
+        <item>Del Carmen Weste</item>
+        <item>Del Rosario</item>
+        <item>Dorol</item>
+        <item>Haguilanan</item>
+        <item>Hanopol Este</item>
+        <item>Hanopol Norte</item>
+        <item>Hanopol Sur</item>
+        <item>Kagawasan</item>
+        <item>Maslog</item>
+        <item>Magsija</item>
+        <item>Poblacion Bajo</item>
+        <item>Poblacion Alto</item>
+        <item>Sagasa</item>
+        <item>Salvador</item>
+        <item>San Isidro</item>
+        <item>San Roque</item>
+        <item>Santo Niño</item>
+        <item>Tagustusan</item>
+    </string-array>
+
+    <!-- Batuan Barangays -->
+    <string-array name="batuan_barangays">
+        <item>Aloja</item>
+        <item>Behind The Clouds</item>
+        <item>Cabacnitan</item>
+        <item>Cambacay</item>
+        <item>Cantigdas</item>
+        <item>Garcia</item>
+        <item>Janlud</item>
+        <item>Poblacion Norte</item>
+        <item>Poblacion Sur</item>
+        <item>Poblacion Vieja</item>
+        <item>Quezon</item>
+        <item>Quirino</item>
+        <item>Rizal</item>
+        <item>Rosario</item>
+        <item>San Jose</item>
+    </string-array>
+
+    <string-array name="bien_unido_barangays">
+        <item>Bilangbilangan Dako</item>
+        <item>Bilangbilangan Diot</item>
+        <item>Liberty</item>
+        <item>Malingin</item>
+        <item>Mandawa</item>
+        <item>Montevideo</item>
+        <item>Nueva Esperanza</item>
+        <item>Nueva Granada</item>
+        <item>Poblacion</item>
+        <item>Puerto San Pedro</item>
+        <item>Sagasa</item>
+        <item>Sibunga</item>
+        <item>Tuboran</item>
+        <item>Villa Milagrosa</item>
+        <item>Virgin</item>
+    </string-array>
+
+    <string-array name="tagbilaran_barangays">
+        <item>Bool</item>
+        <item>Booy</item>
+        <item>Cogon</item>
+        <item>Dampas</item>
+        <item>Dao</item>
+        <item>Mansasa</item>
+        <item>Manga</item>
+        <item>Poblacion I</item>
+        <item>Poblacion II</item>
+        <item>Poblacion III</item>
+        <item>San Isidro</item>
+        <item>Taloto</item>
+        <item>Tiptip</item>
+        <item>Ubujan</item>
+        <item>Centro (Tiptip)</item>
+    </string-array>
+
+    <string-array name="panglao_barangays">
+        <item>Bil-isan</item>
+        <item>Bolod</item>
+        <item>Danao</item>
+        <item>Doljo</item>
+        <item>Libaong</item>
+        <item>Looc</item>
+        <item>Lourdes</item>
+        <item>Poblacion</item>
+        <item>Tangnan</item>
+        <item>Tawala</item>
+    </string-array>
+
+    <!-- Dauis Barangays -->
+    <string-array name="dauis_barangays">
+        <item>Biking</item>
+        <item>Bingag</item>
+        <item>Catarman</item>
+        <item>Dao</item>
+        <item>Mayacabac</item>
+        <item>Poblacion</item>
+        <item>San Isidro</item>
+        <item>Songculan</item>
+        <item>Tabalong</item>
+        <item>Tinago</item>
+        <item>Totolan</item>
+        <item>Mariveles</item>
+    </string-array>
+
+    <string-array name="ubay_barangays">
+        <item>Achila</item>
+        <item>Bongbong</item>
+        <item>Bood</item>
+        <item>Buluang</item>
+        <item>Calanggaman</item>
+        <item>Calanggaman Sur</item>
+        <item>Cambacay</item>
+        <item>Camali-an</item>
+        <item>Cambitoon</item>
+        <item>Cambugsay</item>
+        <item>Campatud</item>
+        <item>Casate</item>
+        <item>Humayhumay</item>
+        <item>Imelda</item>
+        <item>Juagdan</item>
+        <item>Kabog</item>
+        <item>Los Angeles</item>
+        <item>Lomangog</item>
+        <item>Mabini</item>
+        <item>Pagasa</item>
+        <item>San Francisco</item>
+        <item>San Pascual</item>
+        <item>Santo Niño</item>
+        <item>Sentinila</item>
+        <item>Tapon</item>
+        <item>Tubog</item>
+        <item>Union</item>
+        <item>Villaflor</item>
+        <item>San Vicente</item>
+    </string-array>
+
 </resources>

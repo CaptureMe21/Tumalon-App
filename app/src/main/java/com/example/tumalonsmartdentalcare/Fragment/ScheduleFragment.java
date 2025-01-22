@@ -19,6 +19,8 @@ import com.example.tumalonsmartdentalcare.Model.Appointment;
 import com.example.tumalonsmartdentalcare.Model.Service;
 import com.example.tumalonsmartdentalcare.R;
 import com.example.tumalonsmartdentalcare.ServiceList;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -186,6 +188,14 @@ public class ScheduleFragment extends Fragment {
         scheduleTimeText.setText(selectedTime); // Use the selectedTime variable
 
         confirmButton.setOnClickListener(v -> {
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser == null) {
+                Toast.makeText(getContext(), "User not logged in. Cannot create appointment.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            String userId = currentUser.getUid(); // Retrieve userId from FirebaseAuth
+
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("appointments");
             String appointmentId = databaseReference.push().getKey();
 
@@ -195,6 +205,7 @@ public class ScheduleFragment extends Fragment {
             }
 
             HashMap<String, Object> appointmentData = new HashMap<>();
+            appointmentData.put("userId", userId); // Include the userId in the data
             appointmentData.put("scheduleDate", selectedDateStr);
             appointmentData.put("scheduleTime", selectedTime);
             appointmentData.put("createdAt", System.currentTimeMillis());
@@ -223,7 +234,7 @@ public class ScheduleFragment extends Fragment {
             confirmationDialog.dismiss();
         });
 
-
         confirmationDialog.show();
     }
+
 }

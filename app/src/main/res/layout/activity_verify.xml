@@ -39,7 +39,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="TUMALON SMART \n DENTAL CARE"
@@ -193,7 +192,7 @@
 
     <!-- Verify Button -->
     <Button
-        android:id="@+id/verify_button"
+        android:id="@+id/verifyBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/lblue"
