@@ -16,13 +16,13 @@
             android:name=".VerifyActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TumalonLanding"
             android:exported="false" />
         <activity
             android:name=".RequestActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".SignupActivity"
@@ -31,7 +31,7 @@
             android:name=".ServiceList"
             android:exported="false" />
         <activity
-            android:name=".TumalonLanding"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

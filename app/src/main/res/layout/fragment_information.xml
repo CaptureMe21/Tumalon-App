@@ -85,10 +85,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Lastname"
+                        android:hint="Last Name"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="32"/>
+
 
                     <Space
                         android:layout_width="8dp"
@@ -100,10 +104,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Firstname"
+                        android:hint="First Name"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="32"/>
 
                 </LinearLayout>
 
@@ -115,18 +122,41 @@
 
                     <EditText
                         android:id="@+id/middle_input"
-                        android:layout_width="0dp"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Middlename"
+                        android:hint="Middlename (optional)"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="32"/>
 
                     <Space
                         android:layout_width="8dp"
                         android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/extension_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/rounded_lblue"
+                        android:hint="Suffix (optional)"
+                        android:padding="5dp"
+                        android:textColor="@color/rblue"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="16"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/nickname_input"
@@ -134,17 +164,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Nickname"
+                        android:hint="Nickname"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
-                </LinearLayout>
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="16"/>
 
-                <LinearLayout
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal">
+                    <Space
+                        android:layout_width="8dp"
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/birthdate_input"
@@ -152,11 +181,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Birthdate"
+                        android:hint=" Birthdate"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
+                        android:textStyle="normal"
                         android:textColorHint="@color/dgrey"
-                        android:focusable="false" />
+                        android:focusable="false"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="10"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -169,7 +201,8 @@
                         android:id="@+id/status_spinner"
                         android:layout_width="180dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_lblue" />
+                        android:background="@drawable/rounded_lblue"
+                        android:textAppearance="@style/HintItalic"/>
 
                     <Space
                         android:layout_width="8dp"
@@ -179,7 +212,8 @@
                         android:id="@+id/sex_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/rounded_lblue" />
+                        android:background="@drawable/rounded_lblue"
+                        android:textAppearance="@style/HintItalic"/>
 
                 </LinearLayout>
 
@@ -195,9 +229,12 @@
                         android:layout_width="250dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Occupation"
+                        android:hint="Occupation"
+                        android:maxLength="32"
                         android:padding="5dp"
+                        android:textAppearance="@style/HintItalic"
                         android:textColor="@color/rblue"
+                        android:textStyle="normal"
                         android:textColorHint="@color/dgrey" />
 
                 </LinearLayout>
@@ -227,7 +264,10 @@
                         android:hint="Enter Nationality"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="16"/>
 
                     <Space
                         android:layout_width="8dp"
@@ -242,7 +282,10 @@
                         android:hint="Enter Religion"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="32"/>
                 </LinearLayout>
 
                 <!-- Nickname, Sex, and Status -->
@@ -278,7 +321,7 @@
 
                     <Spinner
                         android:id="@+id/barangay_spinner"
-                        android:layout_width="180dp"
+                        android:layout_width="220dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_lblue" />
 
@@ -292,9 +335,13 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_lblue"
                         android:hint="Purok Number"
+                        android:inputType="number"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="1"/>
 
                 </LinearLayout>
 
@@ -321,10 +368,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Fullname"
+                        android:hint="Full Name"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="32"/>
 
                     <Space
                         android:layout_width="8dp"
@@ -338,8 +388,12 @@
                         android:background="@drawable/rounded_lblue"
                         android:hint="Phone Number"
                         android:padding="5dp"
+                        android:inputType="number"
+                        android:maxLength="11"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"/>
 
                 </LinearLayout>
 
@@ -356,11 +410,13 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/rounded_lblue"
-                        android:hint="Enter Home Address"
+                        android:hint="Purok-6, Lomangog, Ubay, Bohol"
                         android:padding="5dp"
                         android:textColor="@color/rblue"
-                        android:textColorHint="@color/dgrey" />
-
+                        android:textStyle="normal"
+                        android:textColorHint="@color/dgrey"
+                        android:textAppearance="@style/HintItalic"
+                        android:maxLength="64"/>
                 </LinearLayout>
 
                 <Button
@@ -373,7 +429,6 @@
                     android:text="Finish Signup"
                     android:textColor="@color/rblue"
                     android:textStyle="bold" />
-
 
             </LinearLayout>
 

@@ -7,7 +7,6 @@ public class ClientAccount {
     public String firstName;
     public String middleName;
     public String nickname;
-
     public String dateBirth;
     public String occupation;
     public String civilStatus;
@@ -21,14 +20,16 @@ public class ClientAccount {
     public String personName;
     public String personNumber;
     public String personAddress;
+    public String password;
     public String email;
+    public String phoneNumber;
 
     public ClientAccount() {
     }
 
     public ClientAccount(String userId, String lastName, String firstName, String middleName, String nickname, String dateBirth, String occupation,
                          String civilStatus, String sex, String province, String municipality, String barangay, String nationality, String religion,
-                         String purok, String personName, String personNumber, String personAddress, String email) {
+                         String purok, String personName, String personNumber, String personAddress, String password, String email, String phoneNumber) {
 
         this.userId = userId;
         this.lastName = lastName;
@@ -48,7 +49,9 @@ public class ClientAccount {
         this.personName = personName;
         this.personNumber = personNumber;
         this.personAddress = personAddress;
+        this.password = password;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getUserId() {
@@ -195,11 +198,27 @@ public class ClientAccount {
         this.personAddress = personAddress;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

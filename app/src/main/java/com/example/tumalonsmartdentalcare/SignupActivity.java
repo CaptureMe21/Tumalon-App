@@ -3,11 +3,15 @@ package com.example.tumalonsmartdentalcare;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -27,7 +31,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText emailField, passwordField, confirmPasswordField;
     private Button nextButton;
-    private String userId;
+    private String userId, phone;
+    private ImageView showPasswordToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +47,26 @@ public class SignupActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password);
         confirmPasswordField = findViewById(R.id.confirm_password);
         nextButton = findViewById(R.id.next_button);
+        showPasswordToggle = findViewById(R.id.passwordToggle);
 
-            try {
-                // Retrieve the passed data and assign to the global variable
-                Intent intent = getIntent();
-                userId = intent.getStringExtra("userId"); // Use the global `userId`
+        try {
+            Intent intent = getIntent();
+            userId = intent.getStringExtra("userId"); // Retrieve userId
+            phone = intent.getStringExtra("phone"); // Retrieve phone number
 
-                if (userId == null) {
-                    Toast.makeText(this, "Error: User ID not found", Toast.LENGTH_SHORT).show();
-                    finish();
-                    return;
-                }
-            } catch (Exception e) {
-                Log.e("SignupActivity", "Error retrieving user ID", e);
-                Toast.makeText(this, "Error retrieving user data", Toast.LENGTH_SHORT).show();
+            if (userId == null || phone == null) {
+                Toast.makeText(this, "Error: Required data not found", Toast.LENGTH_SHORT).show();
                 finish();
+                return;
             }
 
+            // Optionally, store the phone number for later use or display it
+            Log.d("SignupActivity", "User ID: " + userId + ", Phone: " + phone);
+        } catch (Exception e) {
+            Log.e("SignupActivity", "Error retrieving data from intent", e);
+            Toast.makeText(this, "Error retrieving user data", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
         // Set click listener for the button
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +75,26 @@ public class SignupActivity extends AppCompatActivity {
                 validateAndProceed();
             }
         });
+
+        // Set a listener to toggle the password visibility and the eye image
+        showPasswordToggle.setOnClickListener(v -> {
+            if (passwordField.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                // Show password as plain text
+                passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                // Change the eye image to open eye
+                showPasswordToggle.setImageResource(R.drawable.show_pass);
+            } else {
+                // Hide password with password stars
+                passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                // Change the eye image to closed eye
+                showPasswordToggle.setImageResource(R.drawable.hide_pass);
+            }
+            // Move the cursor to the end after toggling
+            passwordField.setSelection(passwordField.getText().length());
+        });
+
     }
+
 
     private void validateAndProceed() {
         String email = emailField.getText().toString().trim();
@@ -103,10 +130,11 @@ public class SignupActivity extends AppCompatActivity {
         return password.length() >= 6;
     }
 
-    private void openRequestFragment(  String userId, String email, String password) {
+    private void openRequestFragment(  String userId, String phone, String email, String password) {
         // Create a bundle and add data
         Bundle bundle = new Bundle();
         bundle.putString("userId", userId);
+        bundle.putString("phone", phone);
         bundle.putString("email", email);
         bundle.putString("password", password);
 
@@ -146,7 +174,7 @@ public class SignupActivity extends AppCompatActivity {
                                 // Email already exists in userAccount
                                 Toast.makeText(SignupActivity.this, "Email already taken. Please use a different email.", Toast.LENGTH_SHORT).show();
                             } else {
-                                openRequestFragment(userId, email, password);
+                                openRequestFragment(userId, phone, email, password);
                             }
                         }
 
@@ -166,5 +194,4 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
-
 }

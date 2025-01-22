@@ -2,6 +2,7 @@ package com.example.tumalonsmartdentalcare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +37,7 @@ public class ServiceList extends AppCompatActivity {
     private EditText searchEditText;
     private ImageView backArrow, searchIcon;
     private LinearLayout searchBarLayout;
+    private String userId;
 
     private List<Service> services;
     private serviceAdapter serviceAdapter;
@@ -53,6 +55,18 @@ public class ServiceList extends AppCompatActivity {
         searchEditText = findViewById(R.id.search_edit_text);
         searchBarLayout = findViewById(R.id.search_bar_layout);
         btnBookAppointment = findViewById(R.id.btn_book_appointment);
+
+        // Retrieve the userId from the Intent
+        userId = getIntent().getStringExtra("userId");
+
+        // Check if userId is not null or empty
+        if (userId != null && !userId.isEmpty()) {
+            // Use the userId as needed
+            Log.d("ServiceList", "Received userId: " + userId);
+        } else {
+            // Handle the case where userId is not passed
+            Log.e("ServiceList", "No userId received.");
+        }
 
         // Back arrow click listener to navigate to MainActivity
         backArrow.setOnClickListener(view -> {

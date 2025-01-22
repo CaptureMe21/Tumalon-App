@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("userId", userId);
                 startActivity(intent);
 
-                Toast.makeText(this, "UserId: " + userId, Toast.LENGTH_SHORT).show();
             }
             return true;
         });

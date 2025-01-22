@@ -66,7 +66,8 @@
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.02"
+        android:maxLength="32"/>
 
     <ImageView
         android:id="@+id/EmailImg"
@@ -82,11 +83,11 @@
 
     <EditText
         android:id="@+id/password"
+        android:inputType="textPassword"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:background="@drawable/rounded_lblue"
         android:drawablePadding="10dp"
-        android:inputType="textPassword"
         android:hint="Password"
         android:paddingLeft="45dp"
         android:paddingRight="10dp"
@@ -98,7 +99,22 @@
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.02"
+        android:maxLength="12"/>
+
+    <ImageView
+        android:id="@+id/passwordToggle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="25dp"
+        android:contentDescription="Hide/Hide Password"
+        android:src="@drawable/hide_pass"
+        app:layout_constraintBottom_toBottomOf="@+id/password"
+        app:layout_constraintEnd_toEndOf="@+id/password"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/passwordImg"
+        app:layout_constraintTop_toTopOf="@+id/password" />
 
     <ImageView
         android:id="@+id/passwordImg"
@@ -131,7 +147,9 @@
         app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.02"
+        android:maxLength="12"/>
+
 
     <ImageView
         android:id="@+id/ConfirmPassImg"

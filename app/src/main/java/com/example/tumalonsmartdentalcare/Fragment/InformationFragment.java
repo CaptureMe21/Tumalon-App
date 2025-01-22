@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +40,7 @@ public class InformationFragment extends Fragment {
             phoneNumInput, addressInput, birthdateInput;
 
     private Spinner statusSpinner, sexSpinner, provinceSpinner, municipalitySpinner, barangaySpinner;
-
-    private String userId, email, password;
-
+    private String userId, phone, email, password;
     private Button finishButton;
 
     private static final String ARG_PARAM1 = "param1";
@@ -100,6 +99,7 @@ public class InformationFragment extends Fragment {
         Bundle arguments = getArguments();
         if (arguments != null) {
             userId = arguments.getString("userId");
+            phone = arguments.getString("phone");
             email = arguments.getString("email");
             password = arguments.getString("password");
         }
@@ -333,9 +333,14 @@ public class InformationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 validateFields();
+                if (validateFields()) {
+                    saveClientData();
+                } else {
+                    //No Command Will Happen
+                }
+
             }
         });
-
         return view;
     }
 
@@ -409,67 +414,7 @@ public class InformationFragment extends Fragment {
             Toast.makeText(requireContext(), "Please select a valid barangay", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
-
-        registerUserInFirebaseAuth(email, password);
         return isValid;
-    }
-
-    private void saveClientData() {
-        // Get Firebase database reference
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clientAccount");
-
-        // Retrieve the userId passed from SignupActivity
-        Bundle arguments = getArguments();
-        if (arguments == null) {
-            Toast.makeText(getContext(), "User ID not found!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String userId = arguments.getString("userId");
-        String email = arguments.getString("email");
-        String password = arguments.getString("password");
-
-        if (userId == null || email == null ||  password == null) {
-            Toast.makeText(getContext(), "Required data is missing!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Collect data from input fields
-        String lastName = lnameInput.getText().toString().trim();
-        String firstName = fnameInput.getText().toString().trim();
-        String middleName = middleInput.getText().toString().trim();
-        String nickname = nicknameInput.getText().toString().trim();
-        String dateBirth = birthdateInput.getText().toString().trim();
-        String occupation = occupationInput.getText().toString().trim();
-        String civilStatus = statusSpinner.getSelectedItem().toString().trim();
-        String sex = sexSpinner.getSelectedItem().toString().trim();
-        String province = provinceSpinner.getSelectedItem().toString().trim();
-        String municipality = municipalitySpinner.getSelectedItem().toString().trim();
-        String barangay = barangaySpinner.getSelectedItem().toString().trim();
-        String nationality = nationalityInput.getText().toString().trim();
-        String religion = religionInput.getText().toString().trim();
-        String purok = purokInput.getText().toString().trim();
-        String personName = fullnameInput.getText().toString().trim();
-        String personNumber = phoneNumInput.getText().toString().trim();
-        String personAddress = addressInput.getText().toString().trim();
-
-        // Create a new ClientAccount object
-        ClientAccount clientAccount = new ClientAccount(userId, lastName, firstName, middleName, nickname, dateBirth, occupation, civilStatus, sex, province, municipality,
-                barangay, nationality, religion, purok, personName, personNumber, personAddress, email);
-
-        // Save data under the clientAccount node with userId as the key
-        databaseReference.child(userId).setValue(clientAccount).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(getContext(), "Account saved successfully!", Toast.LENGTH_SHORT).show();
-                registerUserInFirebaseAuth(email, password);
-
-                Intent intent = new Intent(requireActivity(), LoginActivity.class);
-                startActivity(intent);
-
-            } else {
-                Toast.makeText(getContext(), "Failed to save account. Try again.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void showDatePickerDialog() {
@@ -491,43 +436,77 @@ public class InformationFragment extends Fragment {
         datePickerDialog.show();
     }
 
-    private void registerUserInFirebaseAuth(String email, String password) {
-        // Retrieve userId from Bundle arguments
+    private void saveClientData() {
+        // Get Firebase database reference
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("clientAccount");
+
+        // Retrieve the userId passed from SignupActivity
         Bundle arguments = getArguments();
-        if (arguments != null) {
-            userId = arguments.getString("userId"); // Retrieve the custom userId
+        if (arguments == null) {
+            Toast.makeText(getContext(), "User ID not found!", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        // Register the user
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // User registration successful
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        if (user != null && userId != null) {
-                            // Set the custom userId
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(userId) // Assign the custom userId
-                                    .build();
+        String userId = arguments.getString("userId");
+        String phone = arguments.getString("phone");
+        String email = arguments.getString("email");
+        String password = arguments.getString("password");
 
-                            user.updateProfile(profileUpdates)
-                                    .addOnCompleteListener(updateTask -> {
-                                        if (updateTask.isSuccessful()) {
-                                            // Optional: Perform additional actions, e.g., save data
-                                            saveClientData();
-                                            Toast.makeText(getContext(), "User registered successfully with custom userId!", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(getContext(), "Failed to save custom userId in FirebaseAuth profile.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+        if (userId == null || email == null || password == null) {
+            Toast.makeText(getContext(), "Required data is missing!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Fetch the existing data for the user
+        databaseReference.child(userId).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                // Retrieve existing ClientAccount object
+                ClientAccount clientAccount = task.getResult().getValue(ClientAccount.class);
+                if (clientAccount != null) {
+                    // Update fields with new input
+                    clientAccount.setLastName(lnameInput.getText().toString().trim());
+                    clientAccount.setFirstName(fnameInput.getText().toString().trim());
+                    clientAccount.setMiddleName(middleInput.getText().toString().trim());
+                    clientAccount.setNickname(nicknameInput.getText().toString().trim());
+                    clientAccount.setDateBirth(birthdateInput.getText().toString().trim());
+                    clientAccount.setOccupation(occupationInput.getText().toString().trim());
+                    clientAccount.setCivilStatus(statusSpinner.getSelectedItem().toString().trim());
+                    clientAccount.setSex(sexSpinner.getSelectedItem().toString().trim());
+                    clientAccount.setProvince(provinceSpinner.getSelectedItem().toString().trim());
+                    clientAccount.setMunicipality(municipalitySpinner.getSelectedItem().toString().trim());
+                    clientAccount.setBarangay(barangaySpinner.getSelectedItem().toString().trim());
+                    clientAccount.setNationality(nationalityInput.getText().toString().trim());
+                    clientAccount.setReligion(religionInput.getText().toString().trim());
+                    clientAccount.setPurok("Purok - " + purokInput.getText().toString().trim());
+                    clientAccount.setPersonName(fullnameInput.getText().toString().trim());
+                    clientAccount.setPersonNumber(phoneNumInput.getText().toString().trim());
+                    clientAccount.setPersonAddress(addressInput.getText().toString().trim());
+                    clientAccount.setPhoneNumber(phone);
+                    clientAccount.setPassword(password);
+                    clientAccount.setEmail(email);
+
+                    // Save updated ClientAccount object
+                    databaseReference.child(userId).setValue(clientAccount).addOnCompleteListener(saveTask -> {
+                        if (saveTask.isSuccessful()) {
+                            Toast.makeText(getContext(), "Account updated successfully!", Toast.LENGTH_SHORT).show();
+
+                            // Navigate to LoginActivity and finish all previous activities
+                            Intent intent = new Intent(getActivity(), LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK); // Clear all previous activities
+                            startActivity(intent);
+
+                            // Finish the current activity (fragment's activity) after starting LoginActivity
+                            getActivity().finish();  // Close the activity hosting the fragment
                         } else {
-                            Toast.makeText(getContext(), "User registration failed: userId is null.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Failed to update account. Try again.", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        // Handle registration failure
-                        Toast.makeText(getContext(), "Registration failed: " + (task.getException() != null ? task.getException().getMessage() : "Unknown error"), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    });
+                } else {
+                    Toast.makeText(getContext(), "Failed to retrieve account details.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Failed to fetch existing account data. Try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
 }
